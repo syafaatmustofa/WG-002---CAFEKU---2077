@@ -28,12 +28,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // route auth
 Auth::routes();
 
+// middleware Auth
 Route::middleware(['auth'])->group(function () {
     // route dashboard
     Route::resource('dashboard', DashboardController::class);
     Route::get('dashboard', [DashboardController::class, 'index']);
 });
 
+// middleware admin
 Route::middleware(['auth', 'admin'])->group(function () {
 
     // route kategori
@@ -45,6 +47,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('deletemenu/{menu}', [MenuController::class, 'destroy'])->name('deletemenu');
 });
 
+// middleware owner
 Route::middleware(['auth', 'owner'])->group(function () {
 
     // route user
